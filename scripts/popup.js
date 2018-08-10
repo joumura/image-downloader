@@ -165,6 +165,15 @@
     if (ls.new_file_name) {
       var regex = /(?:\.([^.]+))?$/;
       var extension = regex.exec(item.filename)[1];
+      
+      // DownThemAll compatible? from
+      var new_file_name = ls.new_file_name
+        .replace(/\*curl\*/, item.url.replace(/.+\:\/\/(.+)/, '$1').replace(/\?.*$/, '').replace(/\//g, '_'))
+      	.replace(/\*name\*/, item.filename.replace('.' + extension, ''))
+        .replace(/\*ext\*/, extension);
+      if (ls.new_file_name == new_file_name) {
+      // DownThemAll compatible? to
+
       if (parseInt(ls.image_count, 10) === 1) {
         newFilename += ls.new_file_name + '.' + extension;
       }
@@ -172,6 +181,12 @@
         newFilename += ls.new_file_name + ls.image_number + '.' + extension;
         ls.image_number++;
       }
+
+      // DownThemAll compatible? from
+      } else {
+      	newFilename += new_file_name
+      }
+      // DownThemAll compatible? to
     }
     else {
       newFilename += item.filename;
