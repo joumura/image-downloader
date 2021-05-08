@@ -1,28 +1,32 @@
 {
   "name": "Image Downloader",
-  "description": "Browse and download images on a web page.",
-  "version": "2.4.2",
-  "minimum_chrome_version": "31",
+  "description": "Browse and download images on the web",
+  "version": "3.2.3",
+  "minimum_chrome_version": "72",
   "manifest_version": 2,
+  "icons": {
+    "16": "/images/icon_16.png",
+    "48": "/images/icon_48.png",
+    "128": "/images/icon_128.png"
+  },
+  "browser_action": {
+    "default_icon": "/images/icon_128.png",
+    "default_popup": "/src/Popup/index.html"
+  },
+  "options_page": "/src/Options/index.html",
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "/src/background/downloadImages.js",
+      "/src/background/handleUpdates.js"
+    ]
+  },
   "permissions": [
     "activeTab",
-    "downloads"
-  ],
-  "browser_action": {
-    "default_icon": "/icon_128.png",
-    "default_popup": "/views/popup.html"
-  },
-  "icons": {
-    "16": "/icon_16.png",
-    "48": "/icon_48.png",
-    "128": "/icon_128.png"
-  },
-  "web_accessible_resources": [
-    "/images/open.png",
-    "/images/download.png"
-  ],
-  "background": {
-    "scripts": ["/scripts/defaults.js"]
-  },
-  "options_page": "/views/options.html"
+    "downloads",
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*"
+  ]
 }
