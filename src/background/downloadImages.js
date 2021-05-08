@@ -56,7 +56,16 @@ function suggestNewFilename(item, suggest) {
       numberOfDigits,
       '0'
     );
-    newFilename += `${task.options.new_file_name}${formattedImageNumber}.${extension}`;
+    if (~task.options.new_file_name.indexOf('{')) {
+      var new_file_name = task.options.new_file_name
+        .replace(/\{curl\}/, item.url.replace(/.+\:\/\/(.+)/, '$1').replace(/\?.*$/, '').replace(/\//g, '_'))
+        .replace(/\{name\}/, item.filename.replace('.' + extension, ''))
+        .replace(/\{num\}/, formattedImageNumber)
+        .replace(/\{ext\}/, extension);
+      newFilename += new_file_name;
+    } else {
+      newFilename += `${task.options.new_file_name}${formattedImageNumber}.${extension}`;
+    }
   } else {
     newFilename += item.filename;
   }
